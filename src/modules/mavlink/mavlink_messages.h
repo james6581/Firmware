@@ -59,6 +59,7 @@ public:
 	~StreamListItem() {}
 };
 
-extern const StreamListItem *streams_list[];
+const StreamListItem *find_stream(const uint16_t msg_id);
+const StreamListItem *find_stream(const char *stream_name);
 
 #endif /* MAVLINK_MESSAGES_H_ */

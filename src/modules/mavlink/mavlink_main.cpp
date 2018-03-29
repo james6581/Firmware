@@ -1394,16 +1394,15 @@ Mavlink::configure_stream(const char *stream_name, const float rate)
 	}
 
 	/* search for stream with specified name in supported streams list */
-	for (unsigned int i = 0; streams_list[i] != nullptr; i++) {
+	const StreamListItem *item = find_stream(stream_name);
 
-		if (strcmp(stream_name, streams_list[i]->get_name()) == 0) {
-			/* create new instance */
-			stream = streams_list[i]->new_instance(this);
-			stream->set_interval(interval);
-			LL_APPEND(_streams, stream);
+	if (item != nullptr) {
+		/* create new instance */
+		stream = item->new_instance(this);
+		stream->set_interval(interval);
+		LL_APPEND(_streams, stream);
 
-			return OK;
-		}
+		return OK;
 	}
 
 	/* if we reach here, the stream list does not contain the stream */
